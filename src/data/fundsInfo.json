@@ -11,7 +11,7 @@
     "tripName": "Trip to Paris",
     "id": 2,
     "people" : ["Jakob", "Jake"],
-    "ledger" : [{"date": "Oct 19, 2021", "reason":"Jake paid for Eiffel Tower ticket", "amount":"$30"}]
+    "ledger" : [{"date": "Sept 1, 2021", "reason":"Jake paid for Eiffel Tower ticket", "amount":"$30"}]
   }
 
 ]

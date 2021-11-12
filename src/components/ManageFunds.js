@@ -1,4 +1,5 @@
 import React from 'react';
+import { styled } from '@mui/material/styles';
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import clsx from "clsx";
@@ -8,6 +9,13 @@ import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import tripsInfo from '../data/fundsInfo.json';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
@@ -25,6 +33,16 @@ const gridStyles = makeStyles({
     minHeight: 250
   }
 });
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
 
 
 function ManageFunds() {
@@ -81,7 +99,34 @@ function ManageFunds() {
       </Grid>
       <Grid item xs>
         <div className={clsx(useClass.container, useClass.containerTall)}>
-          3
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }}>
+                {trips ? (
+                  trips.map((trip) => (
+                    <>
+                      <TableHead>
+                        <TableRow>
+                          <StyledTableCell align="left" colSpan={3}>
+                            {trip.tripName}
+                          </StyledTableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {trip.ledger.map((expense) => (
+                          <TableRow
+                            key={expense.date}
+                          >
+                            <TableCell align="left">{expense.date}</TableCell>
+                            <TableCell align="center">{expense.reason}</TableCell>
+                            <TableCell align="right">{expense.amount}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </>
+                  ))
+                ) : (<h1> no data </h1>)}
+            </Table>
+          </TableContainer>
         </div>
       </Grid>
     </Grid>
