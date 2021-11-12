@@ -7,9 +7,12 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import tripsInfo from '../data/fundsInfo.json';
 
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
+
+import { useEffect, useState } from 'react';
 
 const gridStyles = makeStyles({
   container: {
@@ -23,14 +26,13 @@ const gridStyles = makeStyles({
   }
 });
 
-const trips = [
-  'Paris',
-  'Switzerland',
-  'New York City'
-];
-
 
 function ManageFunds() {
+
+  const [trips, setTrips] = useState();
+  useEffect(() => {
+    setTrips(tripsInfo);
+  });
 
   const useClass = gridStyles();
 
@@ -39,18 +41,36 @@ function ManageFunds() {
     <Grid item xs>
       <div className={useClass.container}>1
       <List sx={{width: '100%', }}>
-        {trips.map((value) => (
-          <ListItem
-            key={value}
-            secondaryAction={
-              <IconButton edge="end" aria-label="delete">
-                <DeleteIcon />
-              </IconButton>
-            }
-          >
-          <ListItemText primary={`Trip to ${value}`} />
-          </ListItem>
-        ))}
+        {trips ? (
+          trips.map((trip) => (
+            <>
+              <ListItem
+                key={trip.id}
+                secondaryAction={
+                  <IconButton edge="end" aria-label="delete">
+                    <DeleteIcon />
+                  </IconButton>
+                }
+              >
+                <ListItemText primary={trip.tripName} />
+              </ListItem>
+
+              {trip.people.map((person) => (
+                <ListItem 
+                  key={trip.id + "_" + person}
+                  sx={{pl:4}}
+                >
+                    <ListItemText primary={person} />
+                </ListItem>
+                ))}
+            
+            </>
+          ))
+          
+        )
+
+        : (<h1> no data </h1>)}
+
       </List>
       </div>
 
