@@ -16,18 +16,20 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
 
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 
 import { useEffect, useState } from 'react';
+import { StylesContext } from '@material-ui/styles';
+import { TextField } from '@mui/material';
 
 const gridStyles = makeStyles({
   container: {
     height: "150%",
     minHeight: 100,
     border: "1px solid black",
-    textAlign: "center"
   },
   containerTall: { 
     minHeight: 250
@@ -57,7 +59,7 @@ function ManageFunds() {
   return (
     <Grid container direction="row" spacing={2}>
     <Grid item xs>
-      <div className={useClass.container}>1
+      <div className={useClass.container}>
       <List sx={{width: '100%', }}>
         {trips ? (
           trips.map((trip) => (
@@ -95,7 +97,14 @@ function ManageFunds() {
     </Grid>
     <Grid item container direction="column" xs spacing={2}>
       <Grid item xs>
-        <div className={useClass.container}>2</div>
+        <div className={useClass.container} >
+          <div align="left" style={{display:"flex", alignItems:"center"}}>
+            <TextField id="outlined-basic" label="Date" variant="outlined"/>
+            <TextField id="outlined-basic" label="Description" variant="outlined"/>
+            <TextField id="outlined-basic" label="Amount" variant="outlined"/>
+            <Button variant="contained">Add Expense</Button>
+          </div>
+        </div>
       </Grid>
       <Grid item xs>
         <div className={clsx(useClass.container, useClass.containerTall)}>
@@ -131,7 +140,11 @@ function ManageFunds() {
       </Grid>
     </Grid>
     <Grid item xs>
-      <div className={useClass.container}>4</div>
+      <div className={useClass.container}>
+        <div>Total</div>
+        <div>You owe: $74</div>
+      </div>
+      
     </Grid>
   </Grid>
   );
